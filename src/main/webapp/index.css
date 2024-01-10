@@ -1,0 +1,17 @@
+@charset "ISO-8859-1";
+body{
+	text-align: center;
+	margin-top: 259px;
+}
+a{
+	font-size: xx-large;
+	margin-top: 50%;
+}
+fieldset{
+	font-size: xx-large;
+	height: 250px;
+	width: 250px;
+	align-items: center;
+	background-color: deeppink;
+	display: inline;
+}
