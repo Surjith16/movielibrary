@@ -10,6 +10,9 @@
 <div>
 <h1>error 404 - not found</h1>
 </div>
+<div>
+<img alt="" src="">
+</div>
 
 </body>
 </html>
