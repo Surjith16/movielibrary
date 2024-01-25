@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dao.Dao;
@@ -42,11 +43,23 @@ public class SaveMovie extends  HttpServlet {
 		
 		try {
 			
-			dao.saveMovie(movie);
-			req.setAttribute("movies", dao.getAllMovies() );
-			RequestDispatcher dispatcher =req.getRequestDispatcher("home.jsp");
-			dispatcher.include(req, resp);
 			
+			HttpSession session = req.getSession();
+			String adminname = (String) session.getAttribute("adminname");
+			dao.saveMovie(movie);
+			if (adminname != null) {
+				req.setAttribute("movies", dao.getAllMovies() );
+				RequestDispatcher dispatcher =req.getRequestDispatcher("home.jsp");
+				dispatcher.include(req, resp);
+			}else {
+				req.setAttribute("message","access denied, login required" );
+				RequestDispatcher dispatcher = req.getRequestDispatcher("alogin.jsp");
+				dispatcher.include(req, resp);
+			}
+//			req.setAttribute("movies", dao.getAllMovies() );
+//			RequestDispatcher dispatcher =req.getRequestDispatcher("home.jsp");
+//			dispatcher.include(req, resp);
+//			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

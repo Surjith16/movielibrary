@@ -44,7 +44,7 @@ public class Dao {
 		ResultSet rs=pst.executeQuery();
 		Admin a=new Admin();
 		if(rs.next()) {
-			
+		a.setAdminname(rs.getString(2));	
 		a.setAdminmail(rs.getString(4));
 		a.setAdminpassword(rs.getString(5));
 		}

@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dao.Dao;
@@ -45,11 +46,20 @@ public class EditMovie extends HttpServlet {
 		Dao dao=new Dao();
 		
 		try {
-			
-			req.setAttribute("movies",dao.findMovieById(id));
-			RequestDispatcher dispatcher=req.getRequestDispatcher("edit.jsp");
-			dispatcher.include(req, resp);
-			
+
+			HttpSession session = req.getSession();
+			String adminname = (String) session.getAttribute("adminname");
+			if (adminname != null) {
+				Movie m = dao.findMovieById(id);
+				req.setAttribute("movies", m);
+				RequestDispatcher dispatcher = req.getRequestDispatcher("edit.jsp");
+				dispatcher.include(req, resp);
+			}else {
+				req.setAttribute("message","access denied, login required" );
+				RequestDispatcher dispatcher = req.getRequestDispatcher("alogin.jsp");
+				dispatcher.include(req, resp);
+			}
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

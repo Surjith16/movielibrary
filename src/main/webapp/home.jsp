@@ -10,6 +10,12 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+
+<style>
+
+
+
+</style>
 <body>
 
 <h2>welcome!!</h2>
@@ -54,6 +60,8 @@
 
 
 
-<a href="addmovie.jsp">Add_movie</a>
+<a href="addmovie.jsp">Add_movie</a><br>
+
+<a href="logingout">Log Out</a>
 </body>
 </html>

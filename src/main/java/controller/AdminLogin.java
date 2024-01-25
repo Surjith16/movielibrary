@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import dto.Admin;
@@ -23,15 +24,18 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 	
 	try {
 		Admin admin=dao.findByEmail(adminmail);
-
+       
 		
 		if(admin!=null && admin.getAdminpassword()!=null) {
-			if(admin.getAdminpassword().equals(adminpassword )) {
+			if(admin.getAdminpassword().equals(adminpassword ))
+			{
+				HttpSession session = req.getSession();
+				session.setAttribute("adminname",admin.getAdminname());
 				req.setAttribute("movies", dao.getAllMovies());
-				RequestDispatcher dispatcher=req.getRequestDispatcher("home.jsp");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("home.jsp");
 				dispatcher.include(req, resp);
-				
 			}
+
 			else {
 				req.setAttribute("message", "password is wrong");
 				RequestDispatcher dispatcher=req.getRequestDispatcher("alogin.jsp");
